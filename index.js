@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3000;
 // Usando o CORS com a origem correta
 app.use(cors({
   origin: 'http://localhost:5173',  // A origem do seu frontend
+  //origin: '*',  // Aceita qualquer origem
   methods: ['GET', 'POST', 'OPTIONS'],  // Métodos aceitos
   allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos aceitos
 }));
