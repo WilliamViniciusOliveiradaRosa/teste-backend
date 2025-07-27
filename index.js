@@ -20,7 +20,7 @@ app.use(express.json());
 
 // Rota de exemplo: GET
 app.get('/', (req, res) => {
-  res.json({ message: 'Bem-vindo à minha API!' });
+  res.json({ message: 'Bem-vindo à minha API! onado' });
 });
 
 // Rota de exemplo: POST
