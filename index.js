@@ -1,22 +1,22 @@
-// Importa o Express
 const express = require('express');
 const app = express();
-const cors = require('cors');  // Adicionando a importação do cors
 
-// Define a porta que a API vai escutar
 const PORT = process.env.PORT || 3000;
 
-// Permitir CORS de qualquer origem, com configuração de métodos e cabeçalhos
-app.use(cors({
-  origin: '*', // Aceita qualquer origem
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],  // Métodos permitidos
-  allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
-  credentials: true // Se for necessário enviar cookies ou cabeçalhos
-}));
+// Definindo o cabeçalho CORS manualmente
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:5173');  // Permite requisições apenas do seu frontend
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Métodos permitidos
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Cabeçalhos permitidos
+  // Se for uma requisição OPTIONS (preflight), responder com status 200
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  next();
+});
+
 // Middleware para aceitar JSON no corpo das requisições
 app.use(express.json());
-
-
 
 // Rota de exemplo: GET
 app.get('/', (req, res) => {
