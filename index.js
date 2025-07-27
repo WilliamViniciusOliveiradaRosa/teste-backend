@@ -1,19 +1,17 @@
 const express = require('express');
 const app = express();
+// Importando o pacote cors
+const cors = require('cors');
 
 const PORT = process.env.PORT || 3000;
 
-// Definindo o cabeçalho CORS manualmente
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:5173');  // Permite requisições apenas do seu frontend
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Métodos permitidos
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Cabeçalhos permitidos
-  // Se for uma requisição OPTIONS (preflight), responder com status 200
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-  next();
-});
+// Usando o CORS com a origem correta
+app.use(cors({
+  origin: 'http://localhost:5173',  // A origem do seu frontend
+  methods: ['GET', 'POST', 'OPTIONS'],  // Métodos aceitos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos aceitos
+}));
+
 
 // Middleware para aceitar JSON no corpo das requisições
 app.use(express.json());
